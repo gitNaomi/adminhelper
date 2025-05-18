@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>admin punishment tool</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="centered-content">
+    <div class="container">
+      <h1>admin punishment tool</h1>
+      <form id="punishment-form">
+        <div class="form-group">
+          <label for="offense-class">offense class</label>
+          <select id="offense-class" required>
+            <option value="">select class</option>
+            <option value="item">item offense</option>
+            <option value="block">block offense</option>
+            <option value="hacking">hacking offense</option>
+            <option value="communication">communication offense</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="offense-type">offense type</label>
+          <select id="offense-type" required>
+            <option value="">select offense</option>
+          </select>
+        </div>
+        <div id="dynamic-inputs"></div>
+        <div class="form-group">
+          <label for="prior-points">prior points (for this class)</label>
+          <input type="number" id="prior-points" min="0" value="0" required>
+        </div>
+        <div class="form-group">
+          <label for="months-since">months since last offense</label>
+          <input type="number" id="months-since" min="0" value="0" required>
+        </div>
+        <button type="submit">calculate punishment</button>
+      </form>
+      <div id="result"></div>
+    </div>
+    <div class="footer">made by naomi</div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

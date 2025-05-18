@@ -1,0 +1,120 @@
+/* main container styling for centering and spacing */
+body {
+  background: #f5f5f5;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  color: #222;
+}
+
+/* flex column centering for content and footer */
+.centered-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* simple container for the tool */
+.container {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+}
+
+/* heading style */
+h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.2rem;
+  color: #222;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+/* form group spacing */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+/* label styling */
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.98rem;
+  color: #444;
+  text-transform: lowercase;
+}
+
+/* input and select styling */
+input, select {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  color: #222;
+  font-size: 1rem;
+  margin-bottom: 0.1rem;
+  transition: border 0.2s;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border: 1.5px solid #888;
+  background: #fff;
+}
+
+/* button styling */
+button[type="submit"] {
+  width: 100%;
+  padding: 0.6rem 0;
+  background: #222;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-top: 0.4rem;
+  text-transform: lowercase;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #444;
+}
+
+/* result display styling */
+#result {
+  margin-top: 1.5rem;
+  background: #f0f0f0;
+  border-radius: 3px;
+  padding: 1rem 0.7rem;
+  color: #222;
+  font-size: 1rem;
+  min-height: 2rem;
+  box-shadow: none;
+  word-break: break-word;
+}
+
+/* dynamic input fields styling */
+#dynamic-inputs > .form-group {
+  margin-bottom: 0.8rem;
+}
+
+/* footer styling */
+.footer {
+  text-align: center;
+  color: #888;
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.5px;
+}
