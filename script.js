@@ -1,5 +1,98 @@
 // offense definitions and logic for the admin punishment tool
 
+// command generation function
+function generateCommands(punishment, offense, details, updatedPoints, playerName = "[PLAYER]") {
+  const playerPlaceholder = playerName || "[PLAYER]";
+  let punishmentCommand = "";
+  let noteCommand = `/note ${playerPlaceholder} ${offense.label} - ${updatedPoints} points total`;
+  
+  // generate punishment command based on punishment type
+  if (punishment.includes("warning")) {
+    punishmentCommand = `/warn ${playerPlaceholder} ${offense.label}`;
+  } else if (punishment.includes("kick")) {
+    punishmentCommand = `/kick ${playerPlaceholder} ${offense.label}`;
+  } else if (punishment.includes("15 minute mute")) {
+    punishmentCommand = `/tempmute ${playerPlaceholder} 15m ${offense.label}`;
+  } else if (punishment.includes("30 minute mute")) {
+    punishmentCommand = `/tempmute ${playerPlaceholder} 30m ${offense.label}`;
+  } else if (punishment.includes("1 hour mute")) {
+    punishmentCommand = `/tempmute ${playerPlaceholder} 1h ${offense.label}`;
+  } else if (punishment.includes("2 hour mute")) {
+    punishmentCommand = `/tempmute ${playerPlaceholder} 2h ${offense.label}`;
+  } else if (punishment.includes("1 day mute")) {
+    punishmentCommand = `/tempmute ${playerPlaceholder} 1d ${offense.label}`;
+  } else if (punishment.includes("2 day tempban")) {
+    punishmentCommand = `/tempban ${playerPlaceholder} 2d ${offense.label}`;
+  } else if (punishment.includes("3 day")) {
+    punishmentCommand = `/tempban ${playerPlaceholder} 3d ${offense.label}`;
+  } else if (punishment.includes("5 day")) {
+    punishmentCommand = `/tempban ${playerPlaceholder} 5d ${offense.label}`;
+  } else if (punishment.includes("1 week") || punishment.includes("one week")) {
+    punishmentCommand = `/tempban ${playerPlaceholder} 7d ${offense.label}`;
+  } else if (punishment.includes("2 week")) {
+    punishmentCommand = `/tempban ${playerPlaceholder} 14d ${offense.label}`;
+  } else if (punishment.includes("4 week") || punishment.includes("four weeks") || punishment.includes("1 month")) {
+    punishmentCommand = `/tempban ${playerPlaceholder} 30d ${offense.label}`;
+  } else if (punishment.includes("permanent ban") || punishment.includes("immediate permanent ban")) {
+    punishmentCommand = `/ban ${playerPlaceholder} ${offense.label}`;
+  } else if (punishment.includes("1 hour ban from voice chat")) {
+    punishmentCommand = `/note ${playerPlaceholder} VC ban 1 hour - ${offense.label}`;
+  } else if (punishment.includes("1 day ban from voice chat")) {
+    punishmentCommand = `/note ${playerPlaceholder} VC ban 1 day - ${offense.label}`;
+  } else if (punishment.includes("permanent ban from voice chat")) {
+    punishmentCommand = `/note ${playerPlaceholder} VC ban permanent - ${offense.label}`;
+  } else if (punishment.includes("wipe inventory")) {
+    punishmentCommand = `/note ${playerPlaceholder} Wipe inventory and ender chest - ${offense.label}`;
+  } else if (punishment.includes("demotion")) {
+    punishmentCommand = `/note ${playerPlaceholder} Demotion required - ${offense.label}`;
+  } else {
+    punishmentCommand = `/note ${playerPlaceholder} Manual action required: ${punishment} - ${offense.label}`;
+  }
+  
+  return {
+    punishment: punishmentCommand,
+    note: noteCommand
+  };
+}
+
+// copy to clipboard function
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    // could add visual feedback here
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+  });
+}
+
+// copy command from element
+function copyCommand(elementId) {
+  const element = document.getElementById(elementId);
+  if (element) {
+    copyToClipboard(element.textContent);
+  }
+}
+
+// update commands with player name
+function updateCommands() {
+  const playerNameInput = document.getElementById("player-name");
+  const punishmentElement = document.getElementById("punishment-command");
+  const noteElement = document.getElementById("note-command");
+  
+  if (playerNameInput && punishmentElement && noteElement && window.currentCommands) {
+    const playerName = playerNameInput.value.trim() || "[PLAYER]";
+    const updatedCommands = generateCommands(
+      window.currentPunishment,
+      window.currentOffense,
+      window.currentDetails,
+      window.currentUpdatedPoints,
+      playerName
+    );
+    
+    punishmentElement.textContent = updatedCommands.punishment;
+    noteElement.textContent = updatedCommands.note;
+  }
+}
+
 // offense data structure for each class and type
 const offenses = {
   item: [
@@ -510,6 +603,15 @@ document.getElementById("punishment-form").addEventListener("submit", function(e
     }
   }
 
+  // generate commands with placeholder
+  const commands = generateCommands(punishment, offense, details, updatedPoints);
+
+  // store data globally for real-time updates
+  window.currentPunishment = punishment;
+  window.currentOffense = offense;
+  window.currentDetails = details;
+  window.currentUpdatedPoints = updatedPoints;
+
   // show result, all lowercase
   resultDiv.innerHTML = `
     <strong>offense:</strong> ${offense.label.toLowerCase()}<br>
@@ -518,5 +620,18 @@ document.getElementById("punishment-form").addEventListener("submit", function(e
     <strong>updated points:</strong> ${updatedPoints}<br>
     <strong>recommended punishment:</strong> ${punishment.toLowerCase()}<br>
     <span style="color:#7fd7ff">${details.toLowerCase()}</span>
+    <div class="commands-section">
+      <strong>commands:</strong><br>
+      <div class="command-box">
+        <span class="command-label">punishment:</span><br>
+        <code class="command-text" id="punishment-command">${commands.punishment}</code>
+        <button class="copy-btn" onclick="copyCommand('punishment-command')" type="button">copy</button>
+      </div>
+      <div class="command-box">
+        <span class="command-label">note:</span><br>
+        <code class="command-text" id="note-command">${commands.note}</code>
+        <button class="copy-btn" onclick="copyCommand('note-command')" type="button">copy</button>
+      </div>
+    </div>
   `;
 });

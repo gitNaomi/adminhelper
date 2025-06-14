@@ -109,6 +109,73 @@ button[type="submit"]:hover {
   margin-bottom: 0.8rem;
 }
 
+/* commands section styling */
+.commands-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.player-input-box {
+  margin-bottom: 1rem;
+  background: #f8f8f8;
+  border-radius: 4px;
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+}
+
+.player-input-box label {
+  margin-bottom: 0.4rem;
+}
+
+.player-input-box input {
+  margin-bottom: 0;
+}
+
+.command-box {
+  margin-bottom: 1rem;
+  background: #f8f8f8;
+  border-radius: 4px;
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+}
+
+.command-label {
+  font-weight: 600;
+  color: #444;
+  font-size: 0.9rem;
+  text-transform: lowercase;
+}
+
+.command-text {
+  display: block;
+  background: #2d2d2d;
+  color: #f0f0f0;
+  padding: 0.6rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  margin: 0.4rem 0;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.copy-btn {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-transform: lowercase;
+}
+
+.copy-btn:hover {
+  background: #666;
+}
+
 /* footer styling */
 .footer {
   text-align: center;
